@@ -1,0 +1,17 @@
+[
+    {
+        "title": "titre1",
+        "nom": "Abou",
+        "age": 16
+    },
+    {
+        "title": "titre2",
+        "nom": "Ali",
+        "age": 18
+    },
+    {
+        "title": "titre3",
+        "nom": "Georges",
+        "age": 21
+    }
+]
