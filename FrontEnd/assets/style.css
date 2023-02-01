@@ -186,3 +186,16 @@ footer nav ul {
 	margin: 2em
 }
 
+.galleryJS {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	column-gap: 20px;
+	row-gap: 20px;
+}
+
+img {
+	object-fit: cover;
+	height: 240px;
+	width: 100%;
+}
+
