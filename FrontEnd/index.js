@@ -4,14 +4,29 @@
 worksAPI () // On affiche les éléments de la requête worksAPI avec la fonction createDOM
     .then (r => createDom(r))
 
-createButton () // On affiche les boutons de filtres
+createButton() //On crée les boutons de la galerie avec les filtres associés
+
 
 
 
 /* Detail des fonctions utilisées
 ---------------------------------------------------------------------------*/
 
-// On crée une fonction qui dans un tableau donné crée un DOM pour recevoir des projets constitués de photos et titre
+//On crée une fonction qui récupère les éléments de l'API et les parse en JSON
+async function worksAPI () {
+    const responseWorks = await fetch("http://localhost:5678/api/works", {
+    method: "GET",
+    headers: {
+        "Accept": "*",
+        "Content-Type": "*/*",
+        "access-control-allow-origin": "*",
+        },
+    })
+    return responseWorks.json()
+}
+
+
+// On crée une fonction qui crée un DOM pour recevoir des projets constitués de photos et titre
 function createDom (x) {
     for (let i in x) {
 
@@ -38,20 +53,48 @@ function createDom (x) {
 }
 
 
-
-//On crée une fonction qui récupère les éléments de l'API et les parse en JSON
-async function worksAPI () {
-    const responseWorks = await fetch("http://localhost:5678/api/works", {
-    method: "GET",
-    headers: {
-        "Accept": "*",
-        "Content-Type": "*/*",
-        "access-control-allow-origin": "*",
-        },
-    })
-    return responseWorks.json()
+// On crée une fonction pour supprimer l'affichage de la galerie en cours
+function cleanGallery () {
+    document.querySelector(".galleryJS").innerHTML = ""
 }
 
+
+//On crée une fonction pour récupérer les catégories du works de l'API depuis le fetch worksAPI
+function categoriesUpload (x) {
+    const categories = []
+    for (let i of x) {
+        categories.push(i.category.name)
+    }
+    categories.push("All") //On rajoute la catégorie "All"
+    return [... new Set(categories)]
+}
+
+
+// On crée une fonction pour obtenir les categories.name de worksAPI et on les stocke dans le local storage
+worksAPI ()
+    .then(r => categoriesUpload(r))    
+    .then(r => JSON.stringify(r)) //On parse en ajson
+    .then(r => window.localStorage.setItem("name", r))
+
+
+//On crée une fonction qui renvoi un tableau des categories.name du localstorage
+function worksCategoryName () {
+    const names = JSON.parse(window.localStorage.getItem("name")) //On récupére les categories.name
+    return names
+}
+
+
+// On crée une fonction qui renvoi un tableau des categories.name du localstorage cleané
+function worksCategoryNameClean () {
+    const names = JSON.parse(window.localStorage.getItem("name")) //On récupére les categories.name
+    const namesClean = []
+    for (let i of names) {
+        i = i.replace(/ /g, '') //On supprime les espaces existants dans le name des categories
+        i = i.replace('&', '') //On supprime les caractères spéciaux
+        namesClean.push(i)
+    }
+    return namesClean
+}
 
 
 // On crée les fonctions pour filtrer par type de catégorie de works
@@ -59,25 +102,17 @@ function worksFilteredObjects (x) {
     return x.category.name === "Objets"
 }
 function worksFilteredApartments (x) {
-    return x.category.name === "Appartements" 
+    return x.category.name === "Appartements"
 }
 function worksFilteredHotel (x) {
     return x.category.name === "Hotels & restaurants" 
 }
 
 
-
-// On crée une fonction pour supprimer l'affichage de la galerie en cours
-function cleanGallery () {
-    document.querySelector(".galleryJS").innerHTML = ""
-}
-
-
-
 //On crée une fonction pour créer les boutons et les addEventListener
 function createButton () {
-    const categorieButton = ["Objets", "Appartements", "Hotels", "All"]
-    for (let i of categorieButton) {
+    const x = worksCategoryNameClean()
+    for (let i of x) {
         const filter = ".filter"
         const button = document.querySelector(filter.concat(i))
         button.addEventListener("click", function () {
@@ -95,7 +130,7 @@ function createButton () {
                 worksAPI ()
                     .then (r => r.filter(worksFilteredApartments))
                     .then (r => createDom(r))
-            } else if (i === "Hotels") {
+            } else if (i === "Hotelsrestaurants") {
                 cleanGallery ()
                 worksAPI ()
                     .then (r => r.filter(worksFilteredHotel))
@@ -110,22 +145,11 @@ function createButton () {
 
 
 
+
+
 /* Autres tentatives de code
----------------------------------------------------------------------------*/
+---------------------------------------------------------------------------
 
-/*
-//On crée une constante pour récupérer les catégories du works de l'API depuis le fetch worksAPI
-function categoriesUpload (x) {
-    const categories = []
-    for (let i in x) {
-        categories.push(x[i].category.name)
-    }
-    categories.push("All") //On rajoute la catégorie "All"
-    return [... new Set(categories)]
-} */
-
-
-/*
 //On crée le bouton Trier par Tous
 const buttonAll = document.querySelector(".filterAll")
 buttonAll.addEventListener("click", function () {
