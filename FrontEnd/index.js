@@ -4,6 +4,14 @@
 worksAPI () // On affiche les éléments de la requête worksAPI avec la fonction createDOM
     .then (r => createDom(r))
 
+
+// On crée une fonction pour obtenir les categories.name de worksAPI et on les stocke dans le local storage
+worksAPI ()
+    .then(r => categoriesUpload(r))    
+    .then(r => JSON.stringify(r)) //On parse en json
+    .then(r => window.localStorage.setItem("name", r))
+
+
 createButton() //On crée les boutons de la galerie avec les filtres associés
 
 
@@ -70,13 +78,6 @@ function categoriesUpload (x) {
 }
 
 
-// On crée une fonction pour obtenir les categories.name de worksAPI et on les stocke dans le local storage
-worksAPI ()
-    .then(r => categoriesUpload(r))    
-    .then(r => JSON.stringify(r)) //On parse en ajson
-    .then(r => window.localStorage.setItem("name", r))
-
-
 //On crée une fonction qui renvoi un tableau des categories.name du localstorage
 function worksCategoryName () {
     const names = JSON.parse(window.localStorage.getItem("name")) //On récupére les categories.name
@@ -113,8 +114,7 @@ function worksFilteredHotel (x) {
 function createButton () {
     const x = worksCategoryNameClean()
     for (let i of x) {
-        const filter = ".filter"
-        const button = document.querySelector(filter.concat(i))
+        const button = document.querySelector(".filter".concat(i))
         button.addEventListener("click", function () {
             if (i === "All") {
                 cleanGallery ()
