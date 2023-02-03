@@ -7,18 +7,6 @@ worksAPI () // On affiche les éléments de la requête worksAPI avec la fonctio
     .then (r => createDom(r))
 
 
-// On crée une fonction pour obtenir les categories.name de worksAPI et on les stocke dans le local storage
-worksAPI ()
-    .then(r => categoriesUpload(r)) // on récupère les catégories de l'API    
-    .then(r => JSON.stringify(r)) // On parse en json
-    .then(r => window.localStorage.setItem("name", r)) // On stocke les catégories dans le local storage
-
-
-createButton() // On crée les boutons de la galerie avec les filtres associés
-
-
-
-
 
 /* Detail des fonctions utilisées
 ---------------------------------------------------------------------------*/
@@ -64,87 +52,6 @@ function createDom (x) {
 }
 
 
-// On crée une fonction pour supprimer l'affichage de la galerie en cours
-function cleanGallery () {
-    document.querySelector(".galleryJS").innerHTML = ""
-}
-
-
-//On crée une fonction pour récupérer les catégories du works de l'API depuis le fetch worksAPI
-function categoriesUpload (x) {
-    const categories = []
-    for (let i of x) {
-        categories.push(i.category.name)
-    }
-    categories.push("All") //On rajoute la catégorie "All"
-    return [... new Set(categories)]
-}
-
-
-//On crée une fonction qui renvoi un tableau des categories.name du localstorage
-function worksCategoryName () {
-    const names = JSON.parse(window.localStorage.getItem("name")) //On récupére les categories.name
-    return names
-}
-
-
-// On crée une fonction qui renvoi un tableau des categories.name du localstorage cleané
-function worksCategoryNameClean () {
-    const names = JSON.parse(window.localStorage.getItem("name")) //On récupére les categories.name
-    const namesClean = []
-    for (let i of names) {
-        i = i.replace(/ /g, '') //On supprime les espaces existants dans le name des categories
-        i = i.replace('&', '') //On supprime les caractères spéciaux
-        namesClean.push(i)
-    }
-    return namesClean
-}
-
-
-// On crée les fonctions pour filtrer par type de catégorie de works
-function worksFilteredObjects (x) {
-    return x.category.name === "Objets"
-}
-function worksFilteredApartments (x) {
-    return x.category.name === "Appartements"
-}
-function worksFilteredHotel (x) {
-    return x.category.name === "Hotels & restaurants" 
-}
-
-
-//On crée une fonction pour créer les boutons et les addEventListener
-function createButton () {
-    const x = worksCategoryNameClean() // On obtient une constante qui détient toutes les catégories (+all) cleané des espaces et caratères spéciaux
-    for (let i of x) {
-        const button = document.querySelector(".filter".concat(i)) // On crée les boutons et on les rattache au DOM
-        button.addEventListener("click", function () {
-            cleanGallery () // Pour chaque clic, on clean la galerie
-            if (i === "All") { // Selon la valeur du button, on applique une fonction pour le filtre
-                worksAPI ()
-                    .then (r => createDom(r))
-            } else if (i === "Objets") {
-                worksAPI ()
-                    .then (r => r.filter(worksFilteredObjects))
-                    .then (r => createDom(r))
-            } else if (i === "Appartements") {
-                worksAPI ()
-                    .then (r => r.filter(worksFilteredApartments))
-                    .then (r => createDom(r))
-            } else if (i === "Hotelsrestaurants") {
-                worksAPI ()
-                    .then (r => r.filter(worksFilteredHotel))
-                    .then (r => createDom(r))
-            }
-        })
-    }
-}
-
-
-/*
-Autres solutions de code
----------------------------------------------------------------------------
-
 // On crée le bouton Trier par Tous
 const buttonAll = document.querySelector(".filterAll")
 buttonAll.addEventListener("click", function () {
@@ -160,7 +67,6 @@ function worksFilteredObjects (x) {
     return x.category.name === "Objets"
 }
 
-
 //On crée le bouton Trier par Objets
 const buttonObjects = document.querySelector(".filterObjets")
 buttonObjects.addEventListener("click", function () {
@@ -169,6 +75,7 @@ buttonObjects.addEventListener("click", function () {
         .then(r => r.filter(worksFilteredObjects))
         .then(r => createDom(r))
 })
+
 
 
 // On crée une fonction pour filtrer les éléments de x selon la demande "Appartements"
@@ -186,6 +93,7 @@ buttonApartments.addEventListener("click", function () {
 })
 
 
+
 // On crée une fonction pour filtrer les éléments de x selon la demande "Hôtels & Restaurants"
 function worksFilteredHotel (x) {
     return x.category.name === "Hotels & restaurants" 
@@ -199,7 +107,6 @@ buttonHotel.addEventListener("click", function () {
         .then(r => r.filter(worksFilteredHotel))
         .then(r => createDom(r))
 })
-*/
 
 
 
