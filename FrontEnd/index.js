@@ -8,8 +8,6 @@ getCategory ()
 worksAPI () // On affiche les éléments de la requête worksAPI avec la fonction createDOM
     .then (r => createDom(r))
 
-
-
 /* Detail des fonctions utilisées
 ---------------------------------------------------------------------------*/
 
@@ -52,18 +50,6 @@ function createDom (x) {
         projectElement.appendChild(titleElement)
     }
 }
-
-
-
-function getCategory () {
-    fetch("http://localhost:5678/api/categories")
-    .then(r => r.json())
-    .then(data => {
-        //Creer DOM catagorie
-        data.map((category) => domCategory(category))
-    })
-}
-
 
 
 function domCategory (category) {
