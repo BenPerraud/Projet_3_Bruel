@@ -2,6 +2,8 @@
 
 /* Application du code
 ---------------------------------------------------------------------------*/
+const filterButton = document.getElementById("filterButton") 
+getCategory ()
 
 worksAPI () // On affiche les éléments de la requête worksAPI avec la fonction createDOM
     .then (r => createDom(r))
@@ -51,7 +53,7 @@ function createDom (x) {
     }
 }
 
-
+/*
 // On crée le bouton Trier par Tous
 const buttonAll = document.querySelector(".filterAll")
 buttonAll.addEventListener("click", function () {
@@ -107,7 +109,45 @@ buttonHotel.addEventListener("click", function () {
         .then(r => r.filter(worksFilteredHotel))
         .then(r => createDom(r))
 })
+*/
+
+function getCategory () {
+    fetch("http://localhost:5678/api/categories")
+    .then(r => r.json())
+    .then(data => {
+        //Creer DOM catagorie
+        data.map((category) => domCategory(category))
+    })
+}
 
 
 
+function domCategory (category) {
+    let btn = document.createElement("button")
+    btn.appendChild(document.createTextNode(category.name))
+    btn.className = "filterbuttonDetails"
+    btn.setAttribute ("type", "button")
+    btn.id = category.id
+    btn.addEventListener("click", function () {
+        filter(parseInt(category.id))
 
+    })
+    filterButton.appendChild(btn)
+
+
+}
+
+async function filter (idCategory) {
+    const projets = await worksAPI ()
+    document.querySelector(".galleryJS").innerHTML = "" //On vide la galleryJS
+    if (idCategory === 0) {
+        createDom(projets)
+    } else {
+        const result = projets.filter(projet => projet.category.id === idCategory)
+        createDom (result)
+    }
+}
+
+document.getElementById("all").addEventListener("click", function () {
+    filter(0)
+})
