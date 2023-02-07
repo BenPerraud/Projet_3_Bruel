@@ -2,11 +2,11 @@
 
 /* Application du code
 ---------------------------------------------------------------------------*/
+const filterButton = document.getElementById("filterButton") 
+getCategory ()
 
 worksAPI () // On affiche les éléments de la requête worksAPI avec la fonction createDOM
     .then (r => createDom(r))
-
-    
 
 /* Detail des fonctions utilisées
 ---------------------------------------------------------------------------*/
@@ -52,62 +52,32 @@ function createDom (x) {
 }
 
 
-// On crée le bouton Trier par Tous
-const buttonAll = document.querySelector(".filterAll")
-buttonAll.addEventListener("click", function () {
-    document.querySelector(".galleryJS").innerHTML = "" //On vide la galleryJS
-    worksAPI ()
-        .then(r => createDom(r))
-})
+function domCategory (category) {
+    let btn = document.createElement("button")
+    btn.appendChild(document.createTextNode(category.name))
+    btn.className = "filterbuttonDetails"
+    btn.setAttribute ("type", "button")
+    btn.id = category.id
+    btn.addEventListener("click", function () {
+        filter(parseInt(category.id))
+
+    })
+    filterButton.appendChild(btn)
 
 
-
-// On crée une fonction pour filtrer les éléments de x selon la demande "Objets"
-function worksFilteredObjects (x) {
-    return x.category.name === "Objets"
 }
 
-
-//On crée le bouton Trier par Objets
-const buttonObjects = document.querySelector(".filterObjets")
-buttonObjects.addEventListener("click", function () {
+async function filter (idCategory) {
+    const projets = await worksAPI ()
     document.querySelector(".galleryJS").innerHTML = "" //On vide la galleryJS
-    worksAPI ()
-        .then(r => r.filter(worksFilteredObjects))
-        .then(r => createDom(r))
-})
-
-
-// On crée une fonction pour filtrer les éléments de x selon la demande "Appartements"
-function worksFilteredApartments (x) {
-    return x.category.name === "Appartements" 
+    if (idCategory === 0) {
+        createDom(projets)
+    } else {
+        const result = projets.filter(projet => projet.category.id === idCategory)
+        createDom (result)
+    }
 }
 
-// On crée le bouton Trier par Appartements
-const buttonApartments = document.querySelector(".filterAppartements")
-buttonApartments.addEventListener("click", function () {
-    document.querySelector(".galleryJS").innerHTML = "" //On vide la galleryJS
-    worksAPI ()
-        .then(r => r.filter(worksFilteredApartments))
-        .then(r => createDom(r))
+document.getElementById("all").addEventListener("click", function () {
+    filter(0)
 })
-
-
-// On crée une fonction pour filtrer les éléments de x selon la demande "Hôtels & Restaurants"
-function worksFilteredHotel (x) {
-    return x.category.name === "Hotels & restaurants" 
-}
-
-//On crée le bouton Trier par Appartements
-const buttonHotel = document.querySelector(".filterHotelsrestaurants")
-buttonHotel.addEventListener("click", function () {
-    document.querySelector(".galleryJS").innerHTML = "" //On vide la galleryJS
-    worksAPI ()
-        .then(r => r.filter(worksFilteredHotel))
-        .then(r => createDom(r))
-})
-
-
-
-
-
