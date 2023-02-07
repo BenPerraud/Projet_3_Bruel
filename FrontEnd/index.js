@@ -2,15 +2,11 @@
 
 /* Application du code
 ---------------------------------------------------------------------------*/
+const filterButton = document.getElementById("filterButton") 
+getCategory ()
 
 worksAPI () // On affiche les éléments de la requête worksAPI avec la fonction createDOM
     .then (r => createDom(r))
-
-    
-
-
-
-
 
 /* Detail des fonctions utilisées
 ---------------------------------------------------------------------------*/
@@ -56,9 +52,32 @@ function createDom (x) {
 }
 
 
-// On crée une fonction pour supprimer l'affichage de la galerie en cours
-function cleanGallery () {
-    document.querySelector(".galleryJS").innerHTML = ""
+function domCategory (category) {
+    let btn = document.createElement("button")
+    btn.appendChild(document.createTextNode(category.name))
+    btn.className = "filterbuttonDetails"
+    btn.setAttribute ("type", "button")
+    btn.id = category.id
+    btn.addEventListener("click", function () {
+        filter(parseInt(category.id))
+
+    })
+    filterButton.appendChild(btn)
+
+
 }
 
+async function filter (idCategory) {
+    const projets = await worksAPI ()
+    document.querySelector(".galleryJS").innerHTML = "" //On vide la galleryJS
+    if (idCategory === 0) {
+        createDom(projets)
+    } else {
+        const result = projets.filter(projet => projet.category.id === idCategory)
+        createDom (result)
+    }
+}
 
+document.getElementById("all").addEventListener("click", function () {
+    filter(0)
+})
