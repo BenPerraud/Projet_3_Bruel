@@ -2,11 +2,15 @@
 
 /* Application du code
 ---------------------------------------------------------------------------*/
-const filterButton = document.getElementById("filterButton") 
-getCategory ()
+categoryAPI () //On affiche les filtres
+    .then(r => createButton(r))
 
 worksAPI () // On affiche les éléments de la requête worksAPI avec la fonction createDOM
     .then (r => createDom(r))
+
+
+
+
 
 /* Detail des fonctions utilisées
 ---------------------------------------------------------------------------*/
@@ -52,6 +56,76 @@ function createDom (x) {
 }
 
 
+// On crée une fonction qui récupère les éléments (id + name) de "categories" dans l'API
+async function categoryAPI () {
+    const responseCategory = await fetch("http://localhost:5678/api/categories", {
+        method: "GET",
+        headers: {
+            "Accept": "*",
+            "Content-Type": "*/*",
+            "access-control-allow-origin": "*",
+            },
+    })
+    return responseCategory.json()
+   
+}
+
+categoryAPI ()
+    .then(r => console.log(r))
+
+/*const all = {
+        id: 0,
+        name: "Tous"
+    }
+    const result = new Set (response)
+    return result.add(all)*/
+
+
+
+
+
+
+
+
+
+
+
+
+// On crée une fonction qui supprime la galerie en cours
+function cleanGallery () {
+    document.querySelector(".galleryJS").innerHTML = ""
+}
+
+
+
+// On crée une fonction pour créer les boutons sur le HTML depuis les catégories de l'API
+function createButton (x) {
+    for (let i in x) {
+        let button = document.createElement("button") // On crée un élément Bouton
+        button.appendChild(document.createTextNode(x[i].name)) // On incorpore le texte de chaque bouton avec le name de la requête categoriesAPI
+        button.className = "filterbuttonDetails" // On rattache le bouton à sa classe CSS
+        button.setAttribute ("type", "button")
+        button.id = x[i].id
+        filterButton.appendChild(button) // On rattache le bouton à l'élément parent filterButton (id)
+        button.addEventListener("click", function () {
+            cleanGallery ()
+            filter(x[i].name)
+        })
+    }
+}
+
+
+
+
+// On crée une fonction filtre par catégorie
+async function filter (y) {
+    const projets = await worksAPI ()
+    const result = projets.filter(projet => projet.category.name === y)
+    return createDom(result)
+    }
+
+
+/*
 function domCategory (category) {
     let btn = document.createElement("button")
     btn.appendChild(document.createTextNode(category.name))
@@ -63,21 +137,11 @@ function domCategory (category) {
 
     })
     filterButton.appendChild(btn)
-
-
 }
 
-async function filter (idCategory) {
-    const projets = await worksAPI ()
-    document.querySelector(".galleryJS").innerHTML = "" //On vide la galleryJS
-    if (idCategory === 0) {
-        createDom(projets)
-    } else {
-        const result = projets.filter(projet => projet.category.id === idCategory)
-        createDom (result)
-    }
-}
+const filterButton = document.getElementById("filterButton")
+
 
 document.getElementById("all").addEventListener("click", function () {
     filter(0)
-})
+}) */
