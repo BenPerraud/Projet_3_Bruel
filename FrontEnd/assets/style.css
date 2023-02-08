@@ -204,8 +204,7 @@ img {
 	width: 100%;
 }
 
-.filterButton {
-	content: ;
+.filterButtonName {
 	display: flex;
 	flex-direction: row;
 	width: 60%;
