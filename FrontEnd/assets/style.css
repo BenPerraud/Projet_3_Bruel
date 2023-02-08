@@ -233,3 +233,58 @@ img {
 	background-color: #1D6154;
 	color: white;
 }
+
+a {
+	color: black;
+	text-decoration: none;
+}
+
+.instagram {
+	height: 20px;
+	width: auto;
+}
+
+.connexion {
+	display: flex;
+	flex-direction: column;
+	row-gap: 37px;
+	width: 30%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 200px;
+	align-items: center;
+}
+
+.seconnecter {
+	background-color: #1D6154;
+	color: white;
+	height: 36px;
+	width: 50%;
+	border-radius: 60px;
+}
+
+.formulaire {
+	display: flex;
+	flex-direction: column;
+	row-gap: 7px;
+	width: 100%;
+}
+
+.formulaireConnexion {
+	display: flex;
+	flex-direction: column;
+	row-gap: 30px;
+	align-items: center;
+	width: 100%;
+}
+
+.champUtilisateur {
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	height: 50px;
+	border: 0;
+	width: 100%;
+}
+
+.mdp {
+	text-decoration: underline;
+}
