@@ -255,14 +255,6 @@ a {
 	align-items: center;
 }
 
-.seconnecter {
-	background-color: #1D6154;
-	color: white;
-	height: 36px;
-	width: 50%;
-	border-radius: 60px;
-}
-
 .formulaire {
 	display: flex;
 	flex-direction: column;
@@ -283,8 +275,21 @@ a {
 	height: 50px;
 	border: 0;
 	width: 100%;
+	margin-bottom: 23px;
 }
 
 .mdp {
 	text-decoration: underline;
+}
+
+.seconnecter {
+	background-color: #1D6154;
+	color: white;
+	height: 36px;
+	width: 50%;
+	border-radius: 60px;
+	margin-top: 17px;
+	margin-left: auto;
+	margin-right: auto;
+
 }
