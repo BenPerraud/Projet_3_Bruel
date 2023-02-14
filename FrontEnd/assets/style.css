@@ -293,3 +293,46 @@ a {
 	margin-right: auto;
 
 }
+
+.modal {
+	background-color: black;
+	margin: 0;
+	padding: 0;
+	height: 59px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.modalWrapper {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	width: 50%;
+	height: 38px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.modalWrapperDetails {
+	font-family: 'Work Sans';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 14px;
+}
+
+.editionMode {
+	display: flex;
+	flex-direction: row;
+	column-gap: 12px;
+	color: #FFFFFF;
+}
+
+.buttonChanges {
+	height: 100%;
+	border-radius: 60px;
+	box-sizing: border-box;
+	padding-left: 5%;
+	padding-right: 5%;
+}
