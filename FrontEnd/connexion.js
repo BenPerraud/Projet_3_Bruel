@@ -93,7 +93,7 @@ labelPassword.setAttribute("for", "email")
 labelPassword.className = "formulaire"
 const inputPassword = document.createElement("input") // Balise Input
 form.appendChild(inputPassword)
-inputPassword.setAttribute("type", "text")
+inputPassword.setAttribute("type", "password")
 inputPassword.setAttribute("id", "password")
 inputPassword.className = "champUtilisateur"
 
