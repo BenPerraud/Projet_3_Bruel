@@ -499,3 +499,127 @@ a {
 	color: #D65353;
 }
 
+
+/* CSS de la modale upload photo */
+
+.modalUpload {
+	padding: 0;
+	margin: 0;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgb(0, 0, 0, 0.8);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.modalUploadWrapper {
+	overflow: auto;
+	height: 670px;
+	width: 630px;
+	background-color: #FFFFFF;
+	box-sizing: border-box;
+	padding-top: 32px;
+	padding-bottom: 48px;
+	display: flex;
+	flex-direction: column;
+	row-gap: 16px;
+	padding-right: 36px;
+	padding-left: 36px;
+}
+
+.baliseUpload {
+	display: flex;
+	flex-direction: column;
+	row-gap: 7px;
+	background-color: #E8F1F7;
+	box-sizing: border-box;
+	padding-top: 28px;
+	padding-bottom: 19px;
+}
+
+.iconePhoto {
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 50px;
+	color: #b9c5cc;
+	padding-bottom: 20px;
+}
+
+.modalUploadButton {
+	margin-left: auto;
+	margin-right: auto;
+	box-sizing: border-box;
+	background-color: #CBD6DC;
+	border-radius: 60px;
+	border: none;
+	height: 36px;
+	width: 50%;
+	color: #306685;
+	font-family: 'Syne';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 17px;
+	text-align: center;
+}
+
+.modalUploadText {
+	font-family: 'Work Sans';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 10px;
+	line-height: 12px;
+	text-align: center;
+	color: #444444;
+}
+
+.baliseModalUploadForm {
+	display: flex;
+	flex-direction: column;
+	row-gap: 10px;
+	box-sizing: border-box;
+	padding-top: 23px;
+	padding-bottom: 40px;
+}
+
+.labelUpload {
+	font-family: 'Work Sans';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 16px;
+	color: #3D3D3D;
+}
+
+.inputUpload {
+	background: #FFFFFF;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	height: 51px;
+	border: none;
+}
+
+.baliseValidation {
+	display: flex;
+	flex-direction: column;
+	border-top: 1px solid #B3B3B3;
+	box-sizing: border-box;
+	padding-top: 32px;
+}
+
+.buttonValidation {
+	background: #A7A7A7;
+	border-radius: 60px;
+	height: 36px;
+	width: 60%;
+	color: #FFFFFF;
+	border: none;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+
