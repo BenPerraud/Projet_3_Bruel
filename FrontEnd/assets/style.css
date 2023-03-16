@@ -376,7 +376,10 @@ a {
 
 .closeIcone {
 	size: 12px;
-	text-align: right;
+	border: none;
+	background-color: white;
+	width: 3%;
+	margin-left: 97%;
 }
 
 .baliseModal {
@@ -510,7 +513,6 @@ a {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background: rgb(0, 0, 0, 0.8);
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -518,7 +520,7 @@ a {
 
 .modalUploadWrapper {
 	overflow: auto;
-	height: 670px;
+	height: 731px;
 	width: 630px;
 	background-color: #FFFFFF;
 	box-sizing: border-box;
@@ -549,22 +551,38 @@ a {
 	padding-bottom: 20px;
 }
 
-.modalUploadButton {
+.labelPhoto {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
 	margin-left: auto;
 	margin-right: auto;
 	box-sizing: border-box;
 	background-color: #CBD6DC;
-	border-radius: 60px;
+	border-radius: 50px;
 	border: none;
 	height: 36px;
 	width: 50%;
 	color: #306685;
-	font-family: 'Syne';
+	font-family: 'Work Sans';
 	font-style: normal;
-	font-weight: 700;
+	font-weight: 500;
 	font-size: 14px;
-	line-height: 17px;
-	text-align: center;
+	line-height: 16px;
+}
+
+.modalUploadButton {
+	opacity: 0;
+}
+
+.photoUploaded {
+	height: auto;
+	width: 100%;
+	box-sizing: border-box;
+	object-fit: cover;
+	padding-left: 20px;
+	padding-right: 20px;
 }
 
 .modalUploadText {
@@ -611,7 +629,7 @@ a {
 }
 
 .buttonValidation {
-	background: #A7A7A7;
+	background: #1D6154;
 	border-radius: 60px;
 	height: 36px;
 	width: 60%;
