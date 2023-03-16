@@ -68,7 +68,6 @@ async function categoryAPI () {
             },
     })
     return responseCategory.json()
-   
 }
 
 

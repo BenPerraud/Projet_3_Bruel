@@ -40,7 +40,7 @@ async function loginAPI () {
 
 // On crée une fonction pour stocker le token dans le local storage
 function storageToken (x) {
-    window.localStorage.setItem("token", JSON.stringify(x))
+    window.localStorage.setItem("token", JSON.stringify(x.token))
 } 
 
 
