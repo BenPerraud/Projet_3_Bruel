@@ -342,20 +342,19 @@ const buttonValidation = document.createElement("button")
 baliseValidation.appendChild(buttonValidation)
 buttonValidation.appendChild(document.createTextNode("Valider"))
 buttonValidation.className = "buttonValidation"
-buttonValidation.addEventListener("click", function () {
-    postWorksAPI ()
+buttonValidation.addEventListener("click", function (event) {
+    event.preventDefault()
+    testForm ()
     }
 )
 
 async function postWorksAPI () { // Fonction fetch POST
     let token = window.localStorage.getItem("token")
-    console.log(token)
     await fetch("http://localhost:5678/api/works", {
     method: "POST",
     headers: {
         "Accept": "application/json",
-        "Content-Type": "multipart/form-data",
-        "authorization": `bearer ${JSON.parse(token)}`,
+        "Authorization": `bearer ${JSON.parse(token)}`,
         },
     body : formData ()
     })
@@ -364,11 +363,8 @@ async function postWorksAPI () { // Fonction fetch POST
 function formData () {
     let formData = new FormData ()
     formData.append("image", document.getElementById("photo").files[0])
-    console.log(document.getElementById("photo").files[0])
     formData.append("title", document.getElementById("title").value)
     formData.append("category", document.getElementById("category").value)
-    console.log(document.getElementById("category").value)
-    console.log(formData)
     return formData
 }
 
@@ -382,6 +378,18 @@ function idCategory (y) {
     }
 }
 
+// On crée une fonction pour valider le questionnaire avant envoi
+
+function testForm () {
+    if (document.getElementById("photo").files[0] === null || document.getElementById("title").value === null || document.getElementById("category").value === null) {
+        throw alert("Un des champs de sélection n'est pas rempli")
+    } else {
+        postWorksAPI ()
+        alert ("Le projet a bien été ajouté à la base de données, GREAT JOB!")
+    }
+}
+
+
 
 
 
@@ -391,6 +399,10 @@ function idCategory (y) {
 
 /*formData.append("title", document.getElementById("title").value)
 formData.append("category", document.getElementById("category").value)*/
+
+
+/*"authorization": `bearer ${JSON.parse(token)}`,*/
+
 
 /* Test complémentaire
 const uploadAPI = class { // On crée une classe pour regrouper les informations à envoyer à l'API

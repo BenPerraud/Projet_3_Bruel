@@ -34,7 +34,7 @@ async function loginAPI () {
     if (responseLogin.ok === true) {
         return responseLogin.json()
     }
-    throw alert("Erreur dans l’identifiant ou le mot de passe"), window.location.href="http://127.0.0.1:5500/FrontEnd/connexion.html"
+    throw alert("Erreur dans l`identifiant ou le mot de passe"), window.location.href="http://127.0.0.1:5500/FrontEnd/connexion.html"
 }
     
 
