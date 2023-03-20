@@ -34,13 +34,13 @@ async function loginAPI () {
     if (responseLogin.ok === true) {
         return responseLogin.json()
     }
-    throw alert("Erreur dans l’identifiant ou le mot de passe"), window.location.href="http://127.0.0.1:5500/FrontEnd/connexion.html"
+    throw alert("Erreur dans l`identifiant ou le mot de passe"), window.location.href="http://127.0.0.1:5500/FrontEnd/connexion.html"
 }
     
 
 // On crée une fonction pour stocker le token dans le local storage
 function storageToken (x) {
-    window.localStorage.setItem("token", JSON.stringify(x))
+    window.localStorage.setItem("token", JSON.stringify(x.token))
 } 
 
 
@@ -93,7 +93,7 @@ labelPassword.setAttribute("for", "email")
 labelPassword.className = "formulaire"
 const inputPassword = document.createElement("input") // Balise Input
 form.appendChild(inputPassword)
-inputPassword.setAttribute("type", "text")
+inputPassword.setAttribute("type", "password")
 inputPassword.setAttribute("id", "password")
 inputPassword.className = "champUtilisateur"
 
