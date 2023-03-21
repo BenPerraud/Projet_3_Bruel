@@ -25,7 +25,6 @@ function accessModal () {
     modalAccessWrapper.appendChild(buttonChanges)
     buttonChanges.appendChild(document.createTextNode("Publier les changements"))
     buttonChanges.className = "buttonChanges modalAccessWrapperDetails"
-
 }
 
 function createModalLogin () {
@@ -39,12 +38,10 @@ createModalLogin () // Si token, création de la balise pour accéder à la moda
 
 
 
-// Création de la modale (Fonctions + DOM)
+// Fonctions de la modale Gallerie + accès modale Upload
 // ----------------------------------------------------------------------------------
 
-
-// Fonction d'ouverture de la modale
-const openModal = function(e) {
+const openModal = function(e) { // Fonction d'ouverture de la modale Gallerie
     e.preventDefault()
     modal.style.display = null // Suppression du display none
     modal.removeAttribute("aria-hidden") // La modale est maintenant visible pour tous (hors écran) 
@@ -54,26 +51,22 @@ const openModal = function(e) {
     modalWwrapper.addEventListener("click", stopPropagation) // On limite la propagation de la fonction "closeModal" aux parents de la balise div "modalWrapper" (soit le fond opaque derrière, balise aside Modal)
 }
 
-// On sélectionne tous les éléments avec la classe "js-modal" et on leur applique la fonction openModal
-document.querySelectorAll(".js-modal").forEach( a => {
+document.querySelectorAll(".js-modal").forEach( a => { // On sélectionne tous les éléments avec la classe "js-modal" et on leur applique la fonction openModal
     a.addEventListener("click", openModal)
 })
 
-// Fonction de fermeture de la modale
-const closeModal = function (e) {
+const closeModal = function (e) { // Fonction de fermeture de la modale Gallerie
     e.preventDefault()
     modal.setAttribute("style", "display : none") // On remet le display none
     modal.setAttribute("aria-hidden", "true") // La modale est cachée pour tous (hors écran)
     modal.setAttribute("aria-modal", "false") // On ne peut pas intéragir avec la modale
 }
 
-// Fonction de propagation
-const stopPropagation = function (e) {
+const stopPropagation = function (e) { // Fonction de propagation
     e.stopPropagation()
 }
 
-// Fonction d'ouverture de la modale d'upload
-const openModalUpload = function(e) {
+const openModalUpload = function(e) { // Fonction d'ouverture de la modale d'upload
     e.preventDefault()
     modalUpload.style.display = null // Suppression du display none
     modalUpload.removeAttribute("aria-hidden") // La modale est maintenant visible pour tous (hors écran) 
@@ -83,8 +76,7 @@ const openModalUpload = function(e) {
     modalUploadWrapper.addEventListener("click", stopPropagation)
 }
 
-// Fonction de fermeture de la modale d'upload
-const closeModalUpload = function (e) {
+const closeModalUpload = function (e) { // Fonction de fermeture de la modale d'upload
     e.preventDefault()
     modalUpload.setAttribute("style", "display : none") // On remet le display none
     modalUpload.setAttribute("aria-hidden", "true") // La modale est cachée pour tous (hors écran)
@@ -93,41 +85,36 @@ const closeModalUpload = function (e) {
 
 
 
-// Eléments du DOM
+// Eléments du DOM de la modale Gallerie
 // ----------------------------------------------------------------------------------
 
-
-// Modale générale
-const modal = document.querySelector(".modal")
+const modal = document.querySelector(".modal") // Modale générale
 modal.setAttribute("aria-hidden", "true") // Vue hors écran caché
 modal.setAttribute("role", "dialog")
 modal.setAttribute("aria-modal", "false") // La modale n'est pas accessible (interaction)
 modal.setAttribute("aria-labelledby", "titleModal") // Titre de la modale
 
-// Wrapper de la modale
-const modalWwrapper = document.createElement("div") // Elément de la modale
+const modalWwrapper = document.createElement("div") // Wrapper de la modale
 modal.appendChild(modalWwrapper)
 modalWwrapper.setAttribute("id", "modal")
 modalWwrapper.className = "modalWrapper"
 
-// Icône "Fermer la modale"
-const closeIcon = document.createElement("button")
+const closeIcon = document.createElement("button") // Icône "Fermer la modale"
 modalWwrapper.appendChild(closeIcon)
 closeIcon.className = "fa-solid fa-xmark closeIcone"
 
-// Balise "Div" pour englober le reste de la modale
-const baliseModal = document.createElement("div")
+const baliseModal = document.createElement("div") // Balise "Div" pour englober le reste de la modale
 modalWwrapper.appendChild(baliseModal)
 baliseModal.className = "baliseModal"
 
-// Titre de la modale
-const titleModal = document.createElement("p")
+const titleModal = document.createElement("p") // Titre de la modale Gallerie
 baliseModal.appendChild(titleModal)
 titleModal.setAttribute("id", "titleModal")
 titleModal.appendChild(document.createTextNode("Galerie photos"))
 titleModal.className = "titleModal"
 
-// Galerie des photos (Fonction pour afficher les photos depuis l'API)
+
+// Galerie des photos (Fonction pour afficher les photos depuis l'API) ---------------------------------------------------------------------
 const galleryPhoto = document.createElement("div")
 baliseModal.appendChild(galleryPhoto)
 galleryPhoto.className = "galleryPhoto"
@@ -135,11 +122,11 @@ galleryPhoto.className = "galleryPhoto"
 function editGallery (x) {
     for (let i in x) {
         
-        const photosProject = document.createElement("div")
+        const photosProject = document.createElement("div") // Div image + "éditer" + icône suppression et aggrandissement
         galleryPhoto.appendChild(photosProject)
         photosProject.className = "photosProject"
 
-        const photos = document.createElement("img")
+        const photos = document.createElement("img") // Image de la gallerie
         photos.src = x[i].imageUrl
         photos.setAttribute("crossorigin", "anonymous")
         photos.className = "photos"
@@ -159,89 +146,85 @@ function editGallery (x) {
             })
         }
 
-        const photosTitle = document.createElement("p")
+        const photosTitle = document.createElement("p") // Commentaire "éditer"
         photosProject.appendChild(photosTitle)
         photosTitle.appendChild(document.createTextNode("éditer"))
         photosTitle.className = "photosTitle"
 
-        const iconeBaliseSize = document.createElement("div")
+        const iconeBaliseSize = document.createElement("div") // Div pour les icônes suppression et aggrandissement
         photosProject.appendChild(iconeBaliseSize)
         iconeBaliseSize.className = "iconeBaliseSize"
 
-        const iconeSize = document.createElement("i")
+        const iconeSize = document.createElement("i") // Icône aggrandissement
         iconeBaliseSize.appendChild(iconeSize)
         iconeSize.className = "iconeDelete fa-solid fa-maximize"
 
-        const iconeBaliseDelete = document.createElement("button")
+        const iconeBaliseDelete = document.createElement("button") // Bouton de l'icône suppression
         photosProject.appendChild(iconeBaliseDelete)
         iconeBaliseDelete.className = "iconeBaliseDelete"
-        iconeBaliseDelete.addEventListener("click", function () {
-            deleteWorks ().catch(error => console.log(error))
+        iconeBaliseDelete.addEventListener("click", function (event) {
+            event.preventDefault ()
+            deleteWorks ()
         })
         
-        const iconeDelete = document.createElement("i")
+        const iconeDelete = document.createElement("i") // Icône suppression
         iconeBaliseDelete.appendChild(iconeDelete)
         iconeDelete.className = "fa-solid fa-trash-can iconeDelete"
     }
 }
 
-// Affichage de la galerie avec les photos de l'API par une requête fectch (worksAPI) déjà utilisée pour afficher la galerie de la page principale
-worksAPI ()
+worksAPI () // Affichage de la galerie avec les photos de l'API par une requête fectch (worksAPI) déjà utilisée pour afficher la galerie de la page principale
     .then (r => editGallery(r))
 
-// Balise "div" pour recevoir les boutons Ajouter et supprimer
-const changesButton = document.createElement("div")
+
+// Boutons pour accéder à la modale d'upload des projets ---------------------------------------------------------------------
+const changesButton = document.createElement("div") // Balise "div" pour recevoir les boutons Ajouter et supprimer
 baliseModal.appendChild(changesButton)
 changesButton.className = "changesButton"
 
-// Bouton pour "Ajouter une photo"
-const uploadButton = document.createElement("button")
+const uploadButton = document.createElement("button") // Bouton pour "Ajouter une photo"
 changesButton.appendChild(uploadButton)
 uploadButton.appendChild(document.createTextNode("Ajouter une photo"))
 uploadButton.className = "uploadButton"
 uploadButton.addEventListener("click", openModalUpload) // Ouvre la seconde modale pour l'upload des projets
 
-// Bouton pour "Supprimer la galerie"
-const deleteButton = document.createElement("button")
+const deleteButton = document.createElement("button") // Bouton pour "Supprimer la galerie"
 changesButton.appendChild(deleteButton)
 deleteButton.className = "deleteButton"
 deleteButton.appendChild(document.createTextNode("Supprimer la galerie"))
 
 
 
-// Eléments du DOM de la modale pour l'upload de photos
+// Eléments du DOM de la modale Upload
 // ----------------------------------------------------------------------------------
 
-// Modale générale
+// Modale générale ---------------------------------------------------------------------
 const modalUpload = document.querySelector(".modalUpload")
 modal.setAttribute("aria-hidden", "true") // Vue hors écran caché
 modal.setAttribute("role", "dialog")
 modal.setAttribute("aria-modal", "false") // La modale n'est pas accessible (interaction)
 modal.setAttribute("aria-labelledby", "titleModal") // Titre de la modale
 
-// Wrapper de la modale
-const modalUploadWrapper = document.createElement("div")
+const modalUploadWrapper = document.createElement("div") // Wrapper de la modale
 modalUpload.appendChild(modalUploadWrapper)
 modalUploadWrapper.className = "modalUploadWrapper"
 
-// Icône "Fermer la modale"
-const closeIconUpload = document.createElement("i")
+const closeIconUpload = document.createElement("i") // Icône "Fermer la modale"
 modalUploadWrapper.appendChild(closeIconUpload)
 closeIconUpload.className = "fa-solid fa-xmark closeIcone"
 
-// Div pour englober le reste de la modale
-const baliseModalUpload = document.createElement("div")
+const baliseModalUpload = document.createElement("div") // Div pour englober le reste de la modale
 modalUploadWrapper.appendChild(baliseModalUpload)
 baliseModalUpload.className = "baliseModal"
 
-// Titre de la modalUpload
-const titleModalUpload = document.createElement("p")
+const titleModalUpload = document.createElement("p") // Titre de la modalUpload
 baliseModalUpload.appendChild(titleModalUpload)
 titleModalUpload.className = "titleModal"
 titleModalUpload.appendChild(document.createTextNode("Ajout photo"))
 
-// Zone upload des fichiers
-const baliseUpload = document.createElement("div")
+
+// Balise formulaire upload de l'image ---------------------------------------------------------------------
+const baliseUpload = document.createElement("div") // Div pour englober tous les éléments (image, bouton, commentaires)
 baliseModalUpload.appendChild(baliseUpload)
 baliseUpload.className = "baliseUpload"
 
@@ -294,7 +277,7 @@ let loadFile = function (event) { // Fonction pour la prévisualisation
 }
 
 
-// Balise formulaire de upload
+// Balise formulaire d'upload Titre + Catégorie ---------------------------------------------------------------------
 const baliseModalUploadForm = document.createElement("form") // Second "form" pour title et category
 baliseModalUpload.appendChild(baliseModalUploadForm)
 baliseModalUploadForm.className = "baliseModalUploadForm"
@@ -333,7 +316,8 @@ function selectCategory (x) { // Liste déroulante pour les catégories
 categoryAPI ()
     .then(r => selectCategory(r)) // On applique la liste déroulante avec les catégories présentes dans l'API
 
-// Balise de validation
+
+// Balise de validation pour envoi upload ---------------------------------------------------------------------
 const baliseValidation = document.createElement("div")
 baliseModalUpload.appendChild(baliseValidation)
 baliseValidation.className = "baliseValidation"
@@ -344,11 +328,19 @@ buttonValidation.appendChild(document.createTextNode("Valider"))
 buttonValidation.className = "buttonValidation"
 buttonValidation.addEventListener("click", function (event) {
     event.preventDefault()
-    testForm ()
+    testSendForm () // On teste les données du questionnaire remplies par l'utilisateur. Si OK, on envoie la requête POST avec postWorksAPI
     }
 )
 
-async function postWorksAPI () { // Fonction fetch POST
+function formData () { // On crée une fonction qui crée un formData pour le body de la requête fetch POST
+    let formData = new FormData ()
+    formData.append("image", document.getElementById("photo").files[0]) // On récupère l'image uploadée dans FileReader
+    formData.append("title", document.getElementById("title").value) // On récupère le titre de l'image
+    formData.append("category", document.getElementById("category").value) // On récupère la catégorie choisie
+    return formData
+}
+
+async function postWorksAPI () { // On crée la fonction fetch POST pour envoi des projets à l'API
     let token = window.localStorage.getItem("token")
     await fetch("http://localhost:5678/api/works", {
     method: "POST",
@@ -360,33 +352,23 @@ async function postWorksAPI () { // Fonction fetch POST
     })
 }
 
-function formData () {
-    let formData = new FormData ()
-    formData.append("image", document.getElementById("photo").files[0])
-    formData.append("title", document.getElementById("title").value)
-    formData.append("category", document.getElementById("category").value)
-    return formData
-}
-
-// On crée une fonction pour récupérer le numéro d'ID de la catégorie
-function idCategory (y) {
-    for (let i in y) {
-        if (document.getElementById("category").value === y[i].name) {
-            console.log(y[i].id)
-            return y[i].id
+function testSendForm () { // On crée une fonction pour valider le questionnaire avant envoi
+    if (document.getElementById("photo").files[0] === undefined || document.getElementById("title").value === "" || document.getElementById("category").value === "") { // Si un des champs du questionnaire est vide, on stoppe et on l'indique à l'utilisateur
+        throw alert ("Un des champs de sélection n'est pas rempli")
+    } else { // Si tous les champs sont remplis, on valide la taille de l'image avant envoi
+        if (document.getElementById("photo").files[0].size > 150000) {
+            oversizePhoto ()
+        } else { // Si le questionnaire est validé, on envoi une requête à l'API pour uploader le projet et on l'indique à l'utilisateur
+            setTimeout(postWorksAPI, 2000)
+            alert("Le projet a bien été ajouté à la base de données, GREAT JOB!")
+            }
         }
-    }
 }
 
-// On crée une fonction pour valider le questionnaire avant envoi
-
-function testForm () {
-    if (document.getElementById("photo").files[0] === null || document.getElementById("title").value === null || document.getElementById("category").value === null) {
-        throw alert("Un des champs de sélection n'est pas rempli")
-    } else {
-        postWorksAPI ()
-        alert ("Le projet a bien été ajouté à la base de données, GREAT JOB!")
-    }
+function oversizePhoto () { // On crée une fonction en cas de dépassement de la taille maximale autorisée pour l'upload de photo
+    baliseUploadInput.removeAttribute("style") // On réaffiche la zone d'upload photo pour que l'utilisateur puisse recommencer la manipulation d'upload photo
+    previewPhoto.setAttribute("style", "display : none") // On cache la zone de prévisualisation post upload photo
+    throw alert ("La taille de l'image dépasse le maximum autorisé")
 }
 
 
@@ -395,32 +377,6 @@ function testForm () {
 
 
 
-
-
-/*formData.append("title", document.getElementById("title").value)
-formData.append("category", document.getElementById("category").value)*/
-
-
-/*"authorization": `bearer ${JSON.parse(token)}`,*/
-
-
-/* Test complémentaire
-const uploadAPI = class { // On crée une classe pour regrouper les informations à envoyer à l'API
-    constructor (image, title, category) {
-        this.image = image,
-        this.title = title,
-        this.category = category
-    }
-}
-
-function getValueUpload () { // Fonction pour créer la classe à envoyer à l'API
-    let photoInput = document.getElementById("photoToUpload").src
-    let titleInput = document.getElementById("title").value
-    let categoryInput = document.getElementById("category").value
-    let coupleUpload = new uploadAPI (photoInput, titleInput, categoryInput)
-    return JSON.stringify(coupleUpload)
-}
-*/
 
 
 
